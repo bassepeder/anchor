@@ -1,0 +1,148 @@
+# Each [section] is a category. Lines in a section:
+#   key = value          metadata: name, description, always (can't be turned off), default (on at install)
+#   example.com          blocked in Chrome and for every app, including subdomains
+#   example.com/path     blocked in Chrome only (paths are encrypted on the wire)
+#   chrome:example.com   blocked in Chrome only, so apps that depend on the domain keep working
+#   app:com.example      app hidden while the category is on
+
+[adult]
+name = Adult content
+description = Porn, cam and hentai sites, plus the downloaded list of known adult sites.
+always = true
+pornhub.com
+xvideos.com
+xnxx.com
+xhamster.com
+redtube.com
+youporn.com
+tube8.com
+spankbang.com
+eporner.com
+beeg.com
+tnaflix.com
+txxx.com
+hqporner.com
+porn.com
+motherless.com
+thothub.com
+realescort.eu
+onlyfans.com
+fansly.com
+manyvids.com
+chaturbate.com
+stripchat.com
+bongacams.com
+livejasmin.com
+cam4.com
+rule34.xxx
+nhentai.net
+e-hentai.org
+hanime.tv
+brazzers.com
+realitykings.com
+
+[bypass]
+name = Bypass tools
+description = Web proxies, Tor and translation proxies that can load a blocked site through another one.
+always = true
+translate.goog
+croxyproxy.com
+croxyproxy.rocks
+proxysite.com
+kproxy.com
+hidester.com
+4everproxy.com
+proxyium.com
+blockaway.net
+torproject.org
+app:org.torproject.android
+
+[social]
+name = Social feeds
+description = Instagram, TikTok, Reddit, X, Threads, Tumblr and the Facebook website. Messenger and WhatsApp keep working.
+default = true
+instagram.com
+tiktok.com
+tiktokv.com
+reddit.com
+redd.it
+x.com
+twitter.com
+threads.net
+threads.com
+tumblr.com
+9gag.com
+chrome:facebook.com
+app:com.instagram.android
+app:com.instagram.barcelona
+app:com.zhiliaoapp.musically
+app:com.ss.android.ugc.trill
+app:com.reddit.frontpage
+app:com.twitter.android
+app:com.facebook.katana
+app:com.tumblr
+app:com.ninegag.android.app
+
+[shorts]
+name = Short videos
+description = YouTube Shorts and Facebook Reels in Chrome. The rest of YouTube keeps working.
+default = true
+youtube.com/shorts
+m.youtube.com/shorts
+facebook.com/reel
+facebook.com/reels
+facebook.com/watch
+
+[video]
+name = Video and streaming
+description = YouTube, Twitch and Kick entirely, including the YouTube and Twitch apps.
+youtube.com
+youtu.be
+twitch.tv
+kick.com
+app:com.google.android.youtube
+app:tv.twitch.android.app
+
+[gambling]
+name = Gambling
+description = Betting, casino and poker sites.
+bet365.com
+unibet.com
+betway.com
+pokerstars.com
+888.com
+888casino.com
+williamhill.com
+paddypower.com
+betfair.com
+draftkings.com
+fanduel.com
+stake.com
+betsson.com
+leovegas.com
+coolbet.com
+nordicbet.com
+mrgreen.com
+casumo.com
+norsk-tipping.no
+
+[dating]
+name = Dating
+description = Tinder, Bumble, Hinge, Badoo, Grindr and similar apps and sites.
+tinder.com
+gotinder.com
+bumble.com
+hinge.co
+badoo.com
+grindr.com
+okcupid.com
+happn.com
+feeld.co
+app:com.tinder
+app:com.bumble.app
+app:co.hinge.app
+app:com.badoo.mobile
+app:com.grindrapp.android
+app:com.okcupid.okcupid
+app:com.ftw_and_co.happn
+app:co.feeld
