@@ -1,6 +1,7 @@
 package app.anchor
 
 import android.content.Context
+import androidx.core.content.edit
 import java.time.LocalDate
 
 object Stats {
@@ -12,11 +13,11 @@ object Stats {
         val p = prefs(ctx)
         val day = dayKey()
         val today = if (p.getString("day", null) == day) p.getInt("today", 0) else 0
-        p.edit()
-            .putString("day", day)
-            .putInt("today", today + 1)
-            .putLong("total", p.getLong("total", 0L) + 1)
-            .apply()
+        p.edit {
+            putString("day", day)
+            putInt("today", today + 1)
+            putLong("total", p.getLong("total", 0L) + 1)
+        }
     }
 
     fun blockedToday(ctx: Context): Int {

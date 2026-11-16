@@ -6,12 +6,12 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.UserManager
 import android.provider.Telephony
 import android.telecom.TelecomManager
 import android.util.Log
+import androidx.core.net.toUri
 import kotlin.concurrent.thread
 
 class AdminReceiver : DeviceAdminReceiver()
@@ -29,7 +29,6 @@ object Policies {
         add(UserManager.DISALLOW_CONFIG_DATE_TIME)    // can't fast-forward the unlock clock
         add(UserManager.DISALLOW_ADD_USER)            // no guest or second user
         add(UserManager.DISALLOW_USER_SWITCH)
-        add(UserManager.DISALLOW_ADD_MANAGED_PROFILE) // no Secure Folder or work profile
         // Raw strings because the constants aren't public on every SDK level.
         add("no_add_clone_profile")                   // Android 14+: app cloning (Dual Messenger)
         add("no_add_private_profile")                 // Android 15+: private space
@@ -136,7 +135,7 @@ object Policies {
 
     private fun installedBrowsers(ctx: Context): Set<String> {
         // A made-up host only matches general-purpose browsers, not apps with deep links for their own domain.
-        val probe = Intent(Intent.ACTION_VIEW, Uri.parse("https://anchor-probe.invalid/"))
+        val probe = Intent(Intent.ACTION_VIEW, "https://anchor-probe.invalid/".toUri())
             .addCategory(Intent.CATEGORY_BROWSABLE)
         @Suppress("DEPRECATION")
         return ctx.packageManager

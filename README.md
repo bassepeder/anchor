@@ -59,7 +59,7 @@ Until Anchor is turned on, you can run the wizard again from Rules.
 - Every stricter choice asks for confirmation first, since undoing it needs an unlock.
 
 **Always enforced**
-- VPN, Private DNS, date and time, extra users, Secure Folder, app cloning, private space and factory reset are locked in Settings.
+- VPN, Private DNS, date and time, extra users, app cloning, private space and factory reset are locked in Settings.
 - Release builds also turn off safe mode, USB debugging and sideloading.
 
 ## Build

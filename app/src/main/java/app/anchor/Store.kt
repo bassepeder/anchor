@@ -1,5 +1,6 @@
 package app.anchor
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 
@@ -15,6 +16,7 @@ object Store {
         ctx.getSharedPreferences("anchor", Context.MODE_PRIVATE)
 
     // commit() rather than apply(): a restart right after a change must not lose it.
+    @SuppressLint("ApplySharedPref")
     fun edit(ctx: Context, block: SharedPreferences.Editor.() -> Unit) {
         prefs(ctx).edit().apply(block).commit()
     }
