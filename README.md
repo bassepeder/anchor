@@ -64,7 +64,13 @@ Until Anchor is turned on, you can run the wizard again from Rules.
 
 ## Build
 
-Open this folder in Android Studio and let Gradle sync. If Studio asks to create the Gradle wrapper, let it, or run `gradle wrapper` once.
+With the Android SDK installed (`ANDROID_HOME` set), from this folder:
+
+```bash
+./gradlew assembleDebug
+```
+
+Or open the folder in Android Studio. GitHub Actions builds and lints every push to `main` and every pull request, and publishes the debug APK as the `anchor-debug-apk` artifact of each run.
 
 - **Debug** build: for testing. adb, safe mode and sideloading keep working, the time between restarts counts in minutes instead of hours, and you can remove the app with adb.
 - **Release** build: the real thing. It's signed with your debug key, so **back up `~/.android/debug.keystore`**. Updates must be signed with that same key.

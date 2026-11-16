@@ -24,9 +24,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -68,8 +68,9 @@ object AppCatalog {
 fun AppsTab(version: Int, refresh: () -> Unit) {
     val ctx = LocalContext.current
     val canLoosen = remember(version) { Control.canLoosen(ctx) }
-    val apps by produceState<List<AppEntry>?>(initialValue = null, version) {
-        value = withContext(Dispatchers.IO) { AppCatalog.load(ctx) }
+    var apps by remember { mutableStateOf<List<AppEntry>?>(null) }
+    LaunchedEffect(version) {
+        apps = withContext(Dispatchers.IO) { AppCatalog.load(ctx) }
     }
     var query by rememberSaveable { mutableStateOf("") }
     var confirm by remember { mutableStateOf<Confirm?>(null) }
