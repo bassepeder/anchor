@@ -27,7 +27,7 @@
         </activity>
 
         <receiver
-            android:name=".AdminReceiver"
+            android:name=".protection.AdminReceiver"
             android:exported="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
@@ -39,7 +39,7 @@
         </receiver>
 
         <receiver
-            android:name=".BootReceiver"
+            android:name=".protection.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -48,7 +48,7 @@
         </receiver>
 
         <service
-            android:name=".FilterVpnService"
+            android:name=".filter.FilterVpnService"
             android:exported="true"
             android:permission="android.permission.BIND_VPN_SERVICE">
             <intent-filter>

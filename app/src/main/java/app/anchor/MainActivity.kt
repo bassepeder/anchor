@@ -6,6 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import app.anchor.data.Rules
+import app.anchor.data.Store
+import app.anchor.filter.FilterVpnService
+import app.anchor.protection.Policies
+import app.anchor.ui.AnchorApp
+import app.anchor.ui.theme.AnchorTheme
 
 class MainActivity : ComponentActivity() {
     private val vpnConsent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

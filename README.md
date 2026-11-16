@@ -91,12 +91,12 @@ adb install -t app/build/outputs/apk/debug/app-debug.apk
 ```
 
 ```bash
-adb shell dpm set-device-owner app.anchor/.AdminReceiver
+adb shell dpm set-device-owner app.anchor/.protection.AdminReceiver
 ```
 
 4. Add your accounts back, open Anchor and go through the setup wizard. Its last screen offers **Turn on protection**.
 
-For a release build, install `app-release.apk` without `-t`. A debug build can be removed with `adb shell dpm remove-active-admin app.anchor/.AdminReceiver`. A release build can only be removed through an unlock (Home › Turn Anchor off) or a factory reset from recovery mode.
+For a release build, install `app-release.apk` without `-t`. A debug build can be removed with `adb shell dpm remove-active-admin app.anchor/.protection.AdminReceiver`. A release build can only be removed through an unlock (Home › Turn Anchor off) or a factory reset from recovery mode.
 
 ## Test before going strict
 

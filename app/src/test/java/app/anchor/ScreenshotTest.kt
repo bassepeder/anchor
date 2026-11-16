@@ -10,9 +10,14 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.core.content.edit
+import app.anchor.data.Store
+import app.anchor.ui.AnchorApp
+import app.anchor.ui.onboarding.OnboardingWizard
+import app.anchor.ui.theme.AnchorTheme
 import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.RoborazziTaskType
 import com.github.takahirom.roborazzi.captureRoboImage
+import java.time.LocalDate
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExternalResource
@@ -26,7 +31,6 @@ import org.robolectric.annotation.GraphicsMode
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowDevicePolicyManager
-import java.time.LocalDate
 
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -84,10 +88,6 @@ class ScreenshotTest {
         compose.mainClock.autoAdvance = false
         compose.setContent { AnchorTheme(dark = true) { AnchorApp(onActivate = {}) } }
         capture("home-dark")
-    }
-
-    private fun makeDeviceOwner() {
-        shadowOf(ctx.getSystemService(DevicePolicyManager::class.java)).setDeviceOwner(Policies.admin(ctx))
     }
 
     private fun protectedDemo() {
