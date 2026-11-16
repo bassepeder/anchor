@@ -78,7 +78,7 @@ With the Android SDK installed and `ANDROID_HOME` set:
 - **Debug:** for testing. adb, safe mode and sideloading keep working, restarts only need to be minutes apart, and adb can remove the app.
 - **Release:** the real thing.
 
-GitHub Actions builds and lints every push to `main` and every pull request, and attaches both APKs to the run.
+GitHub Actions builds and lints every push to `main` and every pull request, and attaches both APKs to the run. Pushing a tag like `v0.1.0` publishes a signed GitHub release.
 
 ## Install
 

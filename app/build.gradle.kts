@@ -3,10 +3,18 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-fun signingValue(name: String): String? =
+fun buildSetting(name: String): String? =
     providers.environmentVariable(name).orElse(providers.gradleProperty(name)).orNull
 
-val releaseKeystore = signingValue("ANCHOR_KEYSTORE_FILE")
+val releaseKeystore = buildSetting("ANCHOR_KEYSTORE_FILE")
+val appVersion = buildSetting("ANCHOR_VERSION") ?: "0.1.0"
+
+// 1.2.3 -> 10203, so every release has a higher versionCode than the one before it.
+fun versionCodeOf(version: String): Int {
+    val parts = version.split(".").map { it.toInt() }
+    require(parts.size == 3 && parts.drop(1).all { it < 100 }) { "Version must be MAJOR.MINOR.PATCH, got $version" }
+    return parts[0] * 10_000 + parts[1] * 100 + parts[2]
+}
 
 android {
     namespace = "app.anchor"
@@ -18,17 +26,17 @@ android {
         applicationId = "app.anchor"
         minSdk = 30
         targetSdk = 37
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = versionCodeOf(appVersion)
+        versionName = appVersion
     }
 
     signingConfigs {
         if (releaseKeystore != null) {
             create("release") {
                 storeFile = file(releaseKeystore)
-                storePassword = signingValue("ANCHOR_KEYSTORE_PASSWORD")
-                keyAlias = signingValue("ANCHOR_KEY_ALIAS")
-                keyPassword = signingValue("ANCHOR_KEY_PASSWORD")
+                storePassword = buildSetting("ANCHOR_KEYSTORE_PASSWORD")
+                keyAlias = buildSetting("ANCHOR_KEY_ALIAS")
+                keyPassword = buildSetting("ANCHOR_KEY_PASSWORD")
             }
         }
     }
