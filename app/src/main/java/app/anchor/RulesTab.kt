@@ -2,6 +2,7 @@ package app.anchor
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -73,10 +75,10 @@ fun RulesTab(version: Int, refresh: () -> Unit, onRunSetup: () -> Unit) {
         }
         item {
             ChoiceCard(
-                title = "Time between restarts",
+                title = if (BuildConfig.STRICT) "Hours between restarts" else "Minutes between restarts",
                 options = Rules.GAP_HOUR_OPTIONS,
                 selected = gapHours,
-                label = { "$it$gapUnit" },
+                label = { "$it" },
                 enabled = { it >= gapHours || canLoosen },
             ) { h ->
                 if (h > gapHours) stricter("Require $h$gapUnit between restarts?") { Control.setGapHours(ctx, h) }
@@ -85,10 +87,10 @@ fun RulesTab(version: Int, refresh: () -> Unit, onRunSetup: () -> Unit) {
         }
         item {
             ChoiceCard(
-                title = "Unlock stays open for",
+                title = "Minutes an unlock stays open",
                 options = Rules.WINDOW_MINUTE_OPTIONS,
                 selected = windowMinutes,
-                label = { "$it min" },
+                label = { "$it" },
                 enabled = { it <= windowMinutes || canLoosen },
             ) { m ->
                 if (m < windowMinutes) stricter("Keep unlocks open for only $m minutes?") { Control.setWindowMinutes(ctx, m) }
@@ -213,8 +215,11 @@ private fun <T> ChoiceCard(
                 FilterChip(
                     selected = option == selected,
                     onClick = { if (option != selected) onSelect(option) },
-                    label = { Text(label(option)) },
+                    label = {
+                        Text(label(option), maxLines = 1, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+                    },
                     enabled = option == selected || enabled(option),
+                    modifier = Modifier.weight(1f),
                 )
             }
         }

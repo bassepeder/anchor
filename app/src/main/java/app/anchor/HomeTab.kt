@@ -3,6 +3,9 @@ package app.anchor
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -98,7 +101,10 @@ fun HomeTab(version: Int, refresh: () -> Unit, onActivate: () -> Unit) {
             }
             else -> {
                 item {
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Row(
+                        Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
                         StatTile(formatCount(data.blockedToday.toLong()), "blocked today", Modifier.weight(1f))
                         StatTile(formatCount(data.blockedTotal), "blocked in total", Modifier.weight(1f))
                         StatTile(data.hiddenApps.toString(), "apps hidden", Modifier.weight(1f))
@@ -139,17 +145,21 @@ private fun Hero(enforcing: Boolean, days: Long) {
         )
         Column {
             Text(
-                if (enforcing) "Your phone is a tool again" else "Anchor",
-                style = MaterialTheme.typography.headlineSmall,
+                if (enforcing) "Day ${days + 1}" else "Anchor",
+                style = MaterialTheme.typography.headlineMedium,
             )
-            Muted(if (enforcing) "Protected for ${formatDays(days)}" else "Turn your smartphone back into a phone.")
+            Text(
+                if (enforcing) "Your phone is a tool again." else "Turn your smartphone back into a phone.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }
 
 @Composable
 private fun StatTile(value: String, label: String, modifier: Modifier) {
-    Card(modifier) {
+    Card(modifier.fillMaxHeight()) {
         Column(Modifier.padding(12.dp)) {
             Text(value, style = MaterialTheme.typography.headlineSmall)
             Muted(label)

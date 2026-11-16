@@ -24,7 +24,9 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -56,7 +58,7 @@ fun AnchorCard(title: String, modifier: Modifier = Modifier, content: @Composabl
     Card(modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium)
-            content()
+            ProvideTextStyle(MaterialTheme.typography.bodyMedium) { content() }
         }
     }
 }
@@ -114,7 +116,21 @@ fun SwitchCard(
             if (locked) {
                 Icon(Icons.Filled.Lock, contentDescription = "Always on", tint = MaterialTheme.colorScheme.primary)
             } else {
-                Switch(checked = checked, onCheckedChange = onChange, enabled = enabled)
+                Switch(
+                    checked = checked,
+                    onCheckedChange = onChange,
+                    enabled = enabled,
+                    colors = SwitchDefaults.colors(
+                        disabledCheckedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
+                        disabledCheckedThumbColor = MaterialTheme.colorScheme.onPrimary,
+                        disabledCheckedIconColor = MaterialTheme.colorScheme.primary,
+                    ),
+                    thumbContent = if (checked && !enabled) {
+                        { Icon(Icons.Filled.Lock, contentDescription = "Locked", modifier = Modifier.size(SwitchDefaults.IconSize)) }
+                    } else {
+                        null
+                    },
+                )
             }
         }
     }
@@ -205,6 +221,7 @@ fun ConfirmDialog(confirm: Confirm?, onDismiss: () -> Unit) {
 
 fun formatDuration(ms: Long): String {
     val hours = ms / 3_600_000
+    if (hours >= 48 && hours % 24 == 0L) return "${hours / 24} days"
     if (hours >= 1) return if (hours == 1L) "1 hour" else "$hours hours"
     val minutes = ms / 60_000
     return if (minutes == 1L) "1 minute" else "$minutes minutes"
@@ -219,10 +236,4 @@ fun formatCount(n: Long): String = NumberFormat.getIntegerInstance().format(n)
 fun formatCountdown(ms: Long): String {
     val s = (ms / 1000).coerceAtLeast(0)
     return "%d:%02d".format(s / 60, s % 60)
-}
-
-fun formatDays(days: Long): String = when (days) {
-    0L -> "less than a day"
-    1L -> "1 day"
-    else -> "$days days"
 }

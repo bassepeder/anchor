@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Anchor" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowSplashScreenBackground">#FF0B2233</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">#FF1B6C73</item>
+    </style>
+</resources>
